@@ -1,7 +1,7 @@
 import serial
 import struct
-from pyWake.crc import crc
 from pyWake.rx_frame import rxFrame
+from pyWake.crc import crc
 from pyWake import escapesym
 
 class Wake:
@@ -33,11 +33,11 @@ class Wake:
         rx = rxFrame()
         rb = self.port.read()
         if len(rb) != 1:
-            raise IOError("Rx timeout")
+            raise TimeoutError("Rx timeout")
         while rx.feedChar(rb[0]):
             rb = self.port.read()
             if len(rb) != 1:
-                raise IOError("Rx timeout")
+                raise TimeoutError("Rx timeout")
         return rx
 
 
